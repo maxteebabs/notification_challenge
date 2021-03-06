@@ -47,7 +47,11 @@ docker run --env-file=.env -p 7000:8080 swvl
 
 ### How to run test
 ```bash
-python -m unittest discover
+python manage.py runserver
+```
+OR
+```bash
+python -m unittest discover 
 ```
 
 ## API Endpoints
@@ -79,12 +83,16 @@ Sample Response:
     ],
     "status": true
 }
+```
+
 ### GET '/api/notifications/1'
-* fetches a collection of all notifications by customer_id in the database
+* fetches a collection of all notifications per customer_id in the database
 ```
 curl --location --request GET 'localhost:8080/api/notifications/customer/1'
 ```
+
 Sample Response:
+
 ```
 "notifications": [
         {
@@ -105,3 +113,71 @@ Sample Response:
     ],
     "status": true
 ```
+
+### POST '/api/notifications/send'
+* send notification to customers
+```
+curl --location --request POST 'localhost:8080/api/notifications/send' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "message": "Dear Customer, Your promo code is xx339kk. Best Regards",
+    "should_send_sms": true,
+    "should_send_push_notification": false,
+    "should_send_email": false,
+    "customer_id": 1
+}'
+```
+Sample Response
+
+```
+{
+    "message": "sent",
+    "status": true
+}
+```
+
+### POST '/api/notifications/group/send'
+* send notification to a group of customers
+```
+curl --location --request POST 'localhost:8080/api/notifications/group/send' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "message": "Dear Customer, Your promo code is xx339kk. Best Regards",
+    "should_send_sms": true,
+    "should_send_push_notification": false,
+    "should_send_email": false,
+    "group_id": 1
+}'
+```
+Sample Response
+
+```
+{
+    "message": "sent",
+    "status": true
+}
+```
+
+### POST '/api/notifications/riders'
+* send notification to riders
+```
+curl --location --request POST 'localhost:8080/api/notifications/riders' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "message": "Dear Customer, Your promo code is xx339kk. Best Regards",
+    "should_send_sms": true,
+    "should_send_push_notification": false,
+    "should_send_email": false,
+    "user_id": 1
+}'
+```
+Sample Response
+
+```
+{
+    "message": "sent",
+    "status": true
+}
+```
+
+
