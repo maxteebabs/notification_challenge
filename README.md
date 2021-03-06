@@ -17,10 +17,11 @@ In search for new opportunites, I am inpired to take on this backend challenge.
 Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
 #### Docker
-Follow instructions to install the latest version of docker for your platform in the [docker docs](https://www.docker.com/get-started)
+Follow instructions to install the latest version of docker for your platform in the [docker docs](https://docs.docker.com/install/)
 After Installation is complete, run:
 ```bash
 docker build -t swvl .
+docker-compose build 
 ```
 
 ##### Key Dependencies
@@ -29,37 +30,51 @@ docker build -t swvl .
 
 - [DOCKER] help developers and development teams build and ship apps with ease. Docker allows you to build and share containerized applications and microservices. 
 
-- [SQLITE] is a small, fast, self-contained, high-reliability, full-featured, SQL database engine.
+- [SQLAlchemy](https://www.sqlalchemy.org/) and [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) are libraries to handle the lightweight sqlite database. 
 
 - [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension I used for cross origin request
 
 
 
 ## Starting the App
-###  Setting up the environment variables
+### To run the migration script
 ```bash
-source setup.sh
+docker-compose exec api python manage.py db init
 ```
+```bash
+docker-compose exec api python manage.py db migrate
+```
+```bash
+docker-compose exec python manage.py db upgrade
+```
+
 ### To start the application, run
 ```bash
-docker run --env-file=.env -p 7000:8080 swvl
+docker-compose build
+```
+
+```bash
+# docker run --env-file=.env -p 5000:5000 swvl
+docker-compose up -d
+# docker-compose exec db psql --username=postgres --dbname=swvl
 ```
 
 ### How to run test
 ```bash
-python manage.py runserver
+# python manage.py test
+docker-compose exec api python manage.py test
 ```
-OR
+<!-- OR
 ```bash
 python -m unittest discover 
-```
+``` -->
 
 ## API Endpoints
 
 ### GET '/api/notifications'
 * fetches a collection of all notifications in the database
 ```
-curl --location --request GET 'localhost:8080/api/notifications'
+curl --location --request GET 'localhost:5000/api/notifications'
 ```
 Sample Response:
 ```
@@ -88,7 +103,7 @@ Sample Response:
 ### GET '/api/notifications/1'
 * fetches a collection of all notifications per customer_id in the database
 ```
-curl --location --request GET 'localhost:8080/api/notifications/customer/1'
+curl --location --request GET 'localhost:5000/api/notifications/customer/1'
 ```
 
 Sample Response:
@@ -117,7 +132,7 @@ Sample Response:
 ### POST '/api/notifications/send'
 * send notification to customers
 ```
-curl --location --request POST 'localhost:8080/api/notifications/send' \
+curl --location --request POST 'localhost:5000/api/notifications/send' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "message": "Dear Customer, Your promo code is xx339kk. Best Regards",
@@ -139,7 +154,7 @@ Sample Response
 ### POST '/api/notifications/group/send'
 * send notification to a group of customers
 ```
-curl --location --request POST 'localhost:8080/api/notifications/group/send' \
+curl --location --request POST 'localhost:5000/api/notifications/group/send' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "message": "Dear Customer, Your promo code is xx339kk. Best Regards",
@@ -161,7 +176,7 @@ Sample Response
 ### POST '/api/notifications/riders'
 * send notification to riders
 ```
-curl --location --request POST 'localhost:8080/api/notifications/riders' \
+curl --location --request POST 'localhost:5000/api/notifications/riders' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "message": "Dear Customer, Your promo code is xx339kk. Best Regards",

@@ -1,0 +1,38 @@
+version: '3.7'
+
+services: 
+  db:
+    container_name: postgres_db
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=swvl
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5405:5432
+    restart: always
+    networks: 
+      - default
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    container_name: flask_app
+    build: .
+    # command: python manage.py runserver -h 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app
+    ports: 
+      - "5000:5000"
+    env_file: 
+      - ./.env
+    restart: always
+    networks: 
+      - default
+    depends_on: 
+      - db
+    
+
+volumes:
+  postgres_data:
+    external: true

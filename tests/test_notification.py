@@ -6,10 +6,16 @@ from flask import json
 from extensions import db
 from models.Notification import Notification
 
+from sqlalchemy import create_engine
+from sqlalchemy_utils import database_exists, create_database
+
 class NotificationTestCase(unittest.TestCase):
     """Test case for the notification blueprint."""
 
     def setUp(self):
+        engine = create_engine(os.environ.get("TEST_DATABASE_URI"))
+        if not database_exists(engine.url):
+            create_database(engine.url)
         """Set up test variables."""
         app = create_app("Testing")
         

@@ -1,10 +1,14 @@
 import os
+from dotenv import load_dotenv
+load_dotenv('.env')
 
 database_filename = "swvl.db"
 project_dir = os.path.dirname(os.path.abspath(__file__))
-database_path = "sqlite:///{}".format(os.path.join(project_dir, database_filename))
-test_database_path = "sqlite:///{}".format(os.path.join(project_dir, "swvl_test.db"))
-# sqlite:///C:\wamp64\www\swvl\swvl.db
+# database_path = "sqlite:///{}".format(os.path.join(project_dir, database_filename))
+# test_database_path = "sqlite:///{}".format(os.path.join(project_dir, "swvl_test.db"))
+
+database_path = os.environ.get("DATABASE_URI")
+test_database_path = os.environ.get("TEST_DATABASE_URI")
 
 class Default:
     """Default Configuration for the swvl application"""
