@@ -1,5 +1,6 @@
 import sys
-from .extensions import db
+from extensions import db
+db_now = db.func.current_timestamp
 
 class BaseModel(db.Model):
     """Base table schema for all models to inherit from"""
@@ -12,7 +13,7 @@ class BaseModel(db.Model):
     def save(self):
         try:
             db.session.add(self)
-            db.commit()
+            db.session.commit()
         except:
             print(sys.exc_info())
             db.session.rollback()
@@ -23,3 +24,7 @@ class BaseModel(db.Model):
             db.session.commit()
         except:
             db.session.rollback()
+
+def init_db():
+    pass
+    # db.create_all()
