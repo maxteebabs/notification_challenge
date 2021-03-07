@@ -2,7 +2,7 @@
 ----
 
 ## Introduction
-The Capstone project is a project that communicates with our customers via notifications. It allows sending
+The Backend Challenge is a project that communicates with our customers via notifications. It allows sending of 
 Promo codes and riders notification to customers via SMS
 
 
