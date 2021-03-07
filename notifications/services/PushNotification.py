@@ -2,12 +2,12 @@ from notifications.abstractions.Notification import Notification
 from models.User import User
 from models.Group import UserGroup, Group
 from models.Notification import Notification, TYPE, CHANNEL
-from notifications.services.EmailService import EmailService
+from notifications.services.PushNotificationService import PushNotificationService
 
-class EmailNotification(Notification):
+class PushNotification(Notification):
     def __init__(self):
-        self.channel = CHANNEL.EMAIL
-        self.service = EmailService()
+        self.channel = CHANNEL.PUSHNOTIFICATION
+        self.service = PushNotificationService()
 
     def notifyUser(self, message, customer: User):
         """overrides the Notification abstract class method"""

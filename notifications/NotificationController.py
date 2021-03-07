@@ -3,7 +3,7 @@ from models.Notification import Notification
 from models.User import User, TYPE
 from models.Group import Group
 from notifications.services.SMSNotification import SMSNotification
-from notifications.services.PushNotificationService import PushNotificationService
+from notifications.services.PushNotification import PushNotification
 from notifications.services.EmailNotification import EmailNotification
 
 class NotificationController:
@@ -49,16 +49,6 @@ class NotificationController:
             if not user_id:
                 raise ValueError("customer_id field is required")
 
-            # import gettext
-            # _ = gettext.gettext
-            # locale.setlocale(locale.LC_ALL, '')
-            # msg = gettext.gettext(message)
-            # msg = gettext.translation(message, localedir=None, languages=['fr'])
-            # msg = gettext.bindtextdomain('user', localdir='/locale', languages=['en'])
-            # msg = _.transation('user', localdir='/locale', languages=['en'])
-            # gettext.textdomain('myapplication')
-            # _ = gettext.gettext
-            # print(msg)
             # query for a user
             user = User.query.filter_by(
                 type= TYPE.CUSTOMER).filter_by(id=user_id).first()
@@ -69,7 +59,7 @@ class NotificationController:
                 service = SMSNotification()
                 service.notifyUser(message, user)
             if shouldSendPushNotification:
-                service = PushNotificationService()
+                service = PushNotification()
                 service.notifyUser(message, user)
             if shouldSendEmail:
                 service = EmailNotification()
@@ -77,7 +67,8 @@ class NotificationController:
 
             return jsonify({
                 'status': True,
-                'message': "sent"
+                'message': "sent", 
+                'translated_text': message
             }), 200
         except ValueError as e:
             return jsonify({

@@ -1,12 +1,12 @@
 ## SWVL NOTIFICATION APP
 ----
 
-## INTRODUCTION
+## Introduction
 The Capstone project is a project that communicates with our customers via notifications. It allows sending
 Promo codes and riders notification to customers via SMS
 
 
-## MOTIVATION
+## Motivation
 In search for new opportunites, I am inpired to take on this backend challenge.
 
 

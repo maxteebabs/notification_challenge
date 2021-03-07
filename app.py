@@ -24,8 +24,6 @@ def create_app(mode=None):
     register_blueprint(app)
 
     seed_db(app)
-    
-
     return app
 
 def register_blueprint(flask_app):
@@ -38,8 +36,7 @@ def register_blueprint(flask_app):
 def register_extensions(flask_app, mode):
     # create db table
     migrate.init_app(flask_app, db)
-    db.init_app(flask_app)
-    
+    db.init_app(flask_app)    
 
 def register_errorhandlers(app):
     @app.errorhandler(404)
