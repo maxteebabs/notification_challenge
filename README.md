@@ -20,7 +20,6 @@ Follow instructions to install the latest version of python for your platform in
 Follow instructions to install the latest version of docker for your platform in the [docker docs](https://docs.docker.com/install/)
 After Installation is complete, run:
 ```bash
-docker build -t swvl .
 docker-compose build 
 ```
 
