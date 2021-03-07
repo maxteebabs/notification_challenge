@@ -27,9 +27,9 @@ docker-compose build
 
 - [Flask](http://flask.pocoo.org/)  is a lightweight backend microservices framework. Flask is required to handle requests and responses.
 
-- [DOCKER] help developers and development teams build and ship apps with ease. Docker allows you to build and share containerized applications and microservices. 
+- [DOCKER](https://www.docker.com/) help developers and development teams build and ship apps with ease. Docker allows you to build and share containerized applications and microservices. 
 
-- [SQLAlchemy](https://www.sqlalchemy.org/) and [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) are libraries to handle the lightweight sqlite database. 
+- [SQLAlchemy](https://www.sqlalchemy.org/) and [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
 
 - [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension I used for cross origin request
 
